@@ -13,7 +13,10 @@
     "@nuxt/eslint": "^0.6.0",
     "@nuxtjs/seo": "2.0.0-rc.23",
     "@nuxtjs/tailwindcss": "^6.12.2",
+    "@pinia/nuxt": "^0.5.5",
     "nuxt": "^3.13.2",
+    "pinia": "^2.2.4",
+    "vee-validate": "^4.14.4",
     "vue": "latest",
     "vue-router": "latest"
   },

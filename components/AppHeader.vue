@@ -3,12 +3,16 @@
     <nav class="max-w-screen-xl mx-auto">
       <ul class="flex justify-between items-center">
         <li>
-          <SVGLogo />
+          <NuxtLink to="/">
+            <SVGLogo />
+          </NuxtLink>
         </li>
         <li>
           <AppSearch />
         </li>
-        <li />
+        <li>
+          <ShoppingCart />
+        </li>
       </ul>
     </nav>
   </header>
