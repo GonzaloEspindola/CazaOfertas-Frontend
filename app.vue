@@ -1,7 +1,7 @@
 <template>
   <html data-theme="dark" class="p-0">
     <NuxtLayout>
-      <NuxtPage />
+      <NuxtPage class="text-secondary" />
     </NuxtLayout>
   </html>
 </template>
@@ -10,9 +10,5 @@
 html:has(.drawer-toggle:checked) {
   overflow-y: visible;
   scrollbar-gutter: stable;
-}
-
-body {
-  color: #212121;
 }
 </style>

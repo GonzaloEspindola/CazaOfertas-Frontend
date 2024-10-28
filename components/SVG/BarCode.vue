@@ -4,7 +4,6 @@
     id="Capa_1"
     viewBox="0 0 15.273 15.273"
     xml:space="preserve"
-    class="w-3 h-3"
   >
     <g>
       <path

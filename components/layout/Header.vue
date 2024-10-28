@@ -1,17 +1,19 @@
+<script setup lang="ts"></script>
+
 <template>
   <header class="py-4 shadow-md">
     <nav class="max-w-screen-xl mx-auto">
       <ul class="flex justify-between items-center">
         <li>
           <NuxtLink to="/">
-            <SVGLogo />
+            <SvgLogo />
           </NuxtLink>
         </li>
         <li>
-          <AppSearch />
+          <UiSearch />
         </li>
         <li>
-          <ShoppingCart />
+          <UiShoppingCartDrawer class="h-6 w-6" />
         </li>
       </ul>
     </nav>

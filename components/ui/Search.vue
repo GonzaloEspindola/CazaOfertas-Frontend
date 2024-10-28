@@ -5,10 +5,18 @@ interface Form {
   product: string
 }
 
-const { values, handleSubmit } = useForm<Form>()
+const filterStore = useFiltersStore()
+
+const { values, handleSubmit } = useForm<Form>({
+  initialValues: {
+    product: filterStore.productName,
+  },
+})
+
+const { shops } = filterStore
 
 const handleSubmitForm = handleSubmit(() => {
-  useFiltersStore().setProductName(values.product)
+  navigateTo({ path: '/search', query: { product: values.product, shops } })
 })
 </script>
 

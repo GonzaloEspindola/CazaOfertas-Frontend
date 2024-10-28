@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import { availableShops } from '#imports'
 import type { Product } from '~/repositories/types/product'
+import type { OrderBy } from '~/utils/shops'
 
-interface ProductCart {
+export interface ProductCart {
   preShop: string
   shop: string
   productName: string
@@ -14,24 +15,23 @@ interface ProductCart {
   percentDiscount: number
   imageUrl: string
   quantity: number
-}
-
-interface NoAvailableProduct {
   noAvailable: boolean
 }
 
-interface Cart {
-  [storeName: string]: {
-    products: Array<ProductCart | NoAvailableProduct>
-    totalPrice: number
-    needReview: boolean
-  }
+export interface CartItem {
+  products: Array<ProductCart>
+  totalPrice: number
+  needReview: boolean
+}
+
+export interface Cart {
+  [storeName: string]: CartItem
 }
 
 interface ProductByStore {
   [storeName: string]:
     | {
-        product: ProductCart | NoAvailableProduct
+        product: ProductCart
       }
     | undefined
 }
@@ -70,7 +70,12 @@ export const useCartStore = defineStore('cart', {
       })
 
       productByStore['carritoargento'] = {
-        product: { ...product, quantity: 1, preShop: product.shop },
+        product: {
+          ...product,
+          quantity: 1,
+          preShop: product.shop,
+          noAvailable: false,
+        },
       }
 
       this.products.forEach((prod) => {
@@ -79,20 +84,25 @@ export const useCartStore = defineStore('cart', {
 
         if (findCoincidenceProduct) {
           productByStore[prod.shop] = {
-            product: { ...prod, quantity: 1, preShop: prod.shop },
+            product: {
+              ...prod,
+              quantity: 1,
+              preShop: prod.shop,
+              noAvailable: false,
+            },
           }
         } else if (!productByStore[prod.shop]) {
           productByStore[prod.shop] = {
             product: {
-              productName: product.productName,
-              productReference: product.productReference,
+              ...product,
+              quantity: 0,
+              preShop: '',
               noAvailable: true,
             },
           }
         }
       })
 
-      // Actualiza el estado
       Object.keys(productByStore).forEach((store) => {
         if (productByStore[store]) {
           const { product } = productByStore[store]
@@ -100,7 +110,6 @@ export const useCartStore = defineStore('cart', {
           if (product) {
             this.carts[store].products.push(product)
 
-            // Solo suma al totalPrice si `product` es de tipo `ProductCart`
             if ('sellingPriceValue' in product && 'quantity' in product) {
               this.carts[store].totalPrice +=
                 product.sellingPriceValue * product.quantity
@@ -176,6 +185,21 @@ export const useCartStore = defineStore('cart', {
             : sum,
         0
       )
+    },
+
+    orderProducts(orderBy: OrderBy) {
+      this.products.sort((a, b) => {
+        switch (orderBy) {
+          case 'priceAsc':
+            return a.sellingPriceValue - b.sellingPriceValue
+          case 'priceDesc':
+            return b.sellingPriceValue - a.sellingPriceValue
+          case 'discountDesc':
+            return b.percentDiscount - a.percentDiscount
+          default:
+            return 0
+        }
+      })
     },
   },
 

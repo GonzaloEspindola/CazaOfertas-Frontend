@@ -1,4 +1,5 @@
-type Shop = 'carrefour' | 'dia'
+export type Shop = 'carrefour' | 'dia'
+export type OrderBy = 'priceAsc' | 'priceDesc' | 'discountDesc'
 
 export const availableShops: Shop[] = ['carrefour', 'dia']
 

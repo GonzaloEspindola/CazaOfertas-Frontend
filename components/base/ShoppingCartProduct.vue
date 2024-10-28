@@ -1,27 +1,19 @@
 <script setup lang="ts">
-interface Props {
-  preShop: string
-  shop: string
-  productName: string
-  description: string
-  productReference: string
-  brand: string
-  listPriceValue: number
-  sellingPriceValue: number
-  percentDiscount: number
-  imageUrl: string
-  quantity: number
-  noAvailable?: boolean
+import type { ProductCart } from '~/stores/cart'
+
+interface product {
+  product: ProductCart
+  storeName: string
 }
 
-const props = defineProps<Props>()
+const { product, storeName } = defineProps<product>()
 
 const addQuantityToProduct = () => {
-  useCartStore().addQuantityToProduct(props.shop, props.productReference)
+  useCartStore().addQuantityToProduct(product.shop, product.productReference)
 }
 
 const removeQuantityToProduct = () => {
-  useCartStore().removeQuantityToProduct(props.shop, props.productReference)
+  useCartStore().removeQuantityToProduct(product.shop, product.productReference)
 }
 </script>
 
@@ -29,22 +21,22 @@ const removeQuantityToProduct = () => {
   <article
     class="flex items-center justify-between w-full text-sm border-[1px] border-base-content/10 p-2 rounded-md mt-3"
     :class="{
-      'border-warning bg-warning/10': props.noAvailable,
+      'border-warning bg-warning/10': product.noAvailable,
     }"
   >
     <div class="flex gap-4 items-center">
-      <div v-if="!props.noAvailable" class="relative">
+      <div v-if="!product.noAvailable" class="relative">
         <img
-          :src="props.imageUrl"
+          :src="product.imageUrl"
           alt="product image"
           class="aspect-square object-contain w-14 h-14"
         />
         <img
-          v-if="props.shop === 'carritoargento'"
+          v-if="storeName === 'carritoargento'"
           class="h-3 absolute top-0 left-0"
           data-tip="Buscar"
-          :src="`/assets/logos/${props.preShop}.webp`"
-          :alt="`Logo del supermercado ${props.preShop}`"
+          :src="`/assets/logos/${product.preShop}.webp`"
+          :alt="`Logo del supermercado ${product.preShop}`"
         />
       </div>
 
@@ -56,21 +48,21 @@ const removeQuantityToProduct = () => {
       />
 
       <div class="flex flex-col">
-        <h3 class="font-semibold">{{ props.productName }}</h3>
+        <h3 class="font-semibold">{{ product.productName }}</h3>
         <p class="text-xs font-mono text-neutral-400">
-          {{ props.productReference }}
+          {{ product.productReference }}
         </p>
       </div>
     </div>
 
     <div class="flex flex-col items-center">
       <p
-        v-if="props.percentDiscount"
+        v-if="product.percentDiscount"
         class="text-gray-400 line-through text-xs"
       >
-        $ {{ props.listPriceValue }}
+        $ {{ product.listPriceValue }}
       </p>
-      <p class="font-semibold">$ {{ props.sellingPriceValue }}</p>
+      <p class="font-semibold">$ {{ product.sellingPriceValue }}</p>
 
       <div class="flex gap-2 items-center">
         <svg
@@ -88,7 +80,7 @@ const removeQuantityToProduct = () => {
           />
         </svg>
 
-        <p>{{ props.quantity }}</p>
+        <p>{{ product.quantity }}</p>
         <svg
           fill="none"
           viewBox="0 0 24 24"

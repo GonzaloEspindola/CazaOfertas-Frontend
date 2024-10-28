@@ -25,6 +25,6 @@ const productNameStore = computed(() => filterStore.productName)
       >
     </div>
 
-    <Filters />
+    <SectionsFilters />
   </aside>
 </template>

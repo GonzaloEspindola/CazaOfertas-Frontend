@@ -1,18 +1,24 @@
 <script setup lang="ts">
 import { useFiltersStore } from '~/stores/filters'
 
-const filterStore = useFiltersStore()
+const route = useRoute()
 
-const productName = computed(() => filterStore.productName)
-const shops = computed(() => filterStore.shops)
+const { product, shops } = route.query
+
+const filterStore = useFiltersStore()
+filterStore.productName = product as string
+filterStore.shops = shops as string[]
+
+const productNameComputed = computed(() => filterStore.productName)
+const shopsComputed = computed(() => filterStore.shops)
 const isLoading = computed(() => status.value === 'pending')
 
 const { $api } = useNuxtApp()
 
 const getProductsByShops = async () => {
   const query = {
-    productName: productName.value,
-    shops: shops.value,
+    productName: productNameComputed.value,
+    shops: shopsComputed.value,
   }
   return await $api.product.getProducts(query)
 }
@@ -31,7 +37,7 @@ const { data, status, execute } = await useAsyncData(
 )
 
 watch(
-  [shops, productName],
+  [shopsComputed, productNameComputed],
   () => {
     execute()
   },
@@ -43,10 +49,17 @@ watch(
 
 <template>
   <main class="flex gap-4 bg-background py-14">
-    <Sidebar :results="data?.length || 0" :is-loading="isLoading" />
-    <div>
+    <SectionsSidebar :results="data?.length || 0" :is-loading="isLoading" />
+
+    <SectionsProducts>
       <ProductSkeleton v-if="isLoading" />
-      <ProductsSection v-else :data="data!" />
-    </div>
+
+      <ProductCard
+        v-else
+        v-for="product in data"
+        :key="product.productReference + product.shop"
+        :product="product"
+      />
+    </SectionsProducts>
   </main>
 </template>
