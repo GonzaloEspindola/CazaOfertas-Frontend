@@ -14,6 +14,7 @@ export interface ProductCart {
   sellingPriceValue: number
   percentDiscount: number
   imageUrl: string
+  link: string
   quantity: number
   noAvailable: boolean
 }
@@ -60,6 +61,14 @@ export const useCartStore = defineStore('cart', {
   actions: {
     setProducts(products: Product[]) {
       this.products = products
+
+      products.forEach((product) => {
+        this.carts[product.shop].products.find((prod) => {
+          if (prod.productReference === product.productReference) {
+            product.addedToCart = true
+          }
+        })
+      })
     },
 
     addProductToCarts(product: Product) {
@@ -91,6 +100,8 @@ export const useCartStore = defineStore('cart', {
               noAvailable: false,
             },
           }
+
+          prod.addedToCart = true
         } else if (!productByStore[prod.shop]) {
           productByStore[prod.shop] = {
             product: {

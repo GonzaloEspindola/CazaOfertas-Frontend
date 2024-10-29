@@ -13,4 +13,6 @@ export interface Product {
   sellingPriceValue: number
   percentDiscount: number
   imageUrl: string
+  link: string
+  addedToCart?: boolean
 }

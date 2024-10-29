@@ -1,0 +1,29 @@
+<script setup lang="ts">
+interface Props {
+  shop: string
+  link: string
+}
+
+const { shop, link } = defineProps<Props>()
+
+const baseUrlMap: Record<string, string> = {
+  carrefour: 'https://www.carrefour.com.ar/',
+  dia: 'https://www.dia.com.ar',
+}
+</script>
+
+<template>
+  <a
+    :href="`${baseUrlMap[shop]}${link}`"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex items-center justify-center border-t-[1px] border-gray-300 pt-4 pb-2"
+  >
+    <img
+      class="h-6"
+      data-tip="Buscar"
+      :src="`/assets/logos/${shop}.webp`"
+      :alt="`Logo del supermercado ${shop}`"
+    />
+  </a>
+</template>

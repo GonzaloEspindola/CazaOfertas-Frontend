@@ -1,9 +1,5 @@
 <template>
-  <svg
-    viewBox="0 0 406 52"
-    preserveAspectRatio="xMidYMid meet"
-    class="h-10 bg-[#f7e8d3] p-2 rounded-sm"
-  >
+  <svg viewBox="0 0 406 52" preserveAspectRatio="xMidYMid meet" class="h-6">
     <defs id="SvgjsDefs4189"></defs>
     <g
       id="SvgjsG4190"

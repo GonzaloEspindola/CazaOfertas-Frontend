@@ -32,23 +32,25 @@ const searchSpecifyProduct = () => {
     <img
       :src="product.imageUrl"
       alt="product image"
-      class="border-b-2 border-gray-300 grow p-2 aspect-square object-contain w-48 h-48"
+      class="border-b-[1px] border-gray-300 grow p-2 aspect-square object-contain w-48 h-48"
     />
 
-    <img
-      class="h-6 absolute top-0 left-0"
-      data-tip="Buscar"
-      :src="`/assets/logos/${product.shop}.webp`"
-      :alt="`Logo del supermercado ${product.shop}`"
-    />
-
-    <div class="absolute top-0 right-0 flex flex-col gap-1 items-center">
+    <div class="absolute top-0 left-0 flex gap-2 items-center">
       <UiTooltip
+        v-if="!product.addedToCart"
         text="Añadir al carrito"
         @click="addProductToCart"
         class="border border-primary rounded-md hover:cursor-pointer bg-primary/40"
       >
         <SvgShoppingCart class="h-7 w-7 p-[6px]" />
+      </UiTooltip>
+
+      <UiTooltip
+        v-else
+        text="Producto ya añadido al carrito"
+        class="border border-primary rounded-md bg-primary/40"
+      >
+        <SvgCheck class="h-7 w-7 p-[6px]" />
       </UiTooltip>
 
       <UiTooltip

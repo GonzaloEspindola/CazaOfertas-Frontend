@@ -4,16 +4,22 @@ interface Props {
   listingPriceValue: number
   sellingPriceValue: number
   percentDiscount: number
+  shop: string
 }
 
-const { productName, listingPriceValue, sellingPriceValue, percentDiscount } =
-  defineProps<Props>()
+const {
+  productName,
+  listingPriceValue,
+  sellingPriceValue,
+  percentDiscount,
+  shop,
+} = defineProps<Props>()
 
 const hasDiscount = computed(() => percentDiscount > 0)
 </script>
 
 <template>
-  <section class="flex flex-col gap-1 px-2 justify-between grow">
+  <section class="flex flex-col gap-1 px-2 py-4 justify-between grow">
     <h3 class="text-md font-semibold">{{ productName }}</h3>
 
     <div class="flex flex-col">
