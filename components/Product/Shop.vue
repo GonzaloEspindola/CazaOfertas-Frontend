@@ -13,17 +13,19 @@ const baseUrlMap: Record<string, string> = {
 </script>
 
 <template>
-  <a
-    :href="`${baseUrlMap[shop]}${link}`"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="flex items-center justify-center border-t-[1px] border-gray-300 pt-4 pb-2"
-  >
-    <img
-      class="h-6"
-      data-tip="Buscar"
-      :src="`/assets/logos/${shop}.webp`"
-      :alt="`Logo del supermercado ${shop}`"
-    />
-  </a>
+  <UiTooltip text="Buscar en el supermercado">
+    <a
+      :href="`${baseUrlMap[shop]}${link}`"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center justify-center border-t-[1px] border-border pt-4 pb-2"
+    >
+      <img
+        class="h-6"
+        data-tip="Buscar"
+        :src="`/assets/logos/${shop}.webp`"
+        :alt="`Logo del supermercado ${shop}`"
+      />
+    </a>
+  </UiTooltip>
 </template>

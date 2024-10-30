@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { filterShops } from '~/utils/shops'
+import { useFiltersStore } from '~/stores/filters'
 
 const shops = useFiltersStore().shops
 </script>
 
 <template>
   <ul class="flex flex-col gap-2">
-    <p class="font-semibold">Supermercados</p>
+    <p class="text-text-primary font-semibold text-sm">Supermercados</p>
     <li v-for="shop in filterShops" :key="shop.id">
-      <label class="flex gap-2 items-center cursor-pointer">
+      <label class="flex gap-2 items-center cursor-pointer text-text-primary">
         <input
+          class="w-5 h-5 rounded-md accent-primary"
           type="checkbox"
-          class="checkbox"
           :checked="shops.includes(shop.name)"
           @change="useFiltersStore().toggleShop(shop.name)"
         />

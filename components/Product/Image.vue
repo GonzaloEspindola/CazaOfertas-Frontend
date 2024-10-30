@@ -32,7 +32,7 @@ const searchSpecifyProduct = () => {
     <img
       :src="product.imageUrl"
       alt="product image"
-      class="border-b-[1px] border-gray-300 grow p-2 aspect-square object-contain w-48 h-48"
+      class="border-b-[1px] border-border grow p-2 aspect-square object-contain w-48 h-48"
     />
 
     <div class="absolute top-0 left-0 flex gap-2 items-center">
@@ -40,15 +40,15 @@ const searchSpecifyProduct = () => {
         v-if="!product.addedToCart"
         text="Añadir al carrito"
         @click="addProductToCart"
-        class="border border-primary rounded-md hover:cursor-pointer bg-primary/40"
+        class="rounded-md hover:cursor-pointer bg-primary/80"
       >
-        <SvgShoppingCart class="h-7 w-7 p-[6px]" />
+        <SvgShoppingCart class="h-7 w-7 p-[6px] stroke-white" />
       </UiTooltip>
 
       <UiTooltip
         v-else
         text="Producto ya añadido al carrito"
-        class="border border-primary rounded-md bg-primary/40"
+        class="rounded-md bg-primary/80"
       >
         <SvgCheck class="h-7 w-7 p-[6px]" />
       </UiTooltip>
@@ -56,7 +56,7 @@ const searchSpecifyProduct = () => {
       <UiTooltip
         text="Buscar este producto especifico en otros supermercados"
         @click="searchSpecifyProduct"
-        class="border border-primary rounded-md hover:cursor-pointer bg-primary/40"
+        class="rounded-md hover:cursor-pointer bg-primary/80"
       >
         <SvgBarCode class="h-7 w-7 p-[6px]" />
       </UiTooltip>
