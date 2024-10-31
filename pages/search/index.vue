@@ -4,6 +4,8 @@ import { useFiltersStore } from '~/stores/filters'
 const route = useRoute()
 
 const { product, shops } = route.query
+console.log('product', product)
+console.log('shops', shops)
 
 const filterStore = useFiltersStore()
 filterStore.productName = product as string
@@ -39,6 +41,9 @@ const { data, status, execute } = await useAsyncData(
 watch(
   [shopsComputed, productNameComputed],
   () => {
+    console.log('shopsComputed', shopsComputed.value)
+    console.log('productNameComputed.value', productNameComputed.value)
+
     execute()
   },
   {
@@ -53,7 +58,6 @@ watch(
 
     <SectionsProducts>
       <ProductSkeleton v-if="isLoading" />
-
       <ProductCard
         v-else
         v-for="product in data"
@@ -61,5 +65,19 @@ watch(
         :product="product"
       />
     </SectionsProducts>
+
+    <div
+      v-if="!isLoading && data?.length === 0"
+      class="flex flex-col items-center justify-center w-full"
+    >
+      <img
+        src="/assets/svg/empty-cart.png"
+        alt="Imagen de carrito vació"
+        class="w-48 h-48"
+      />
+      <p class="text-lg font-semibold text-text-secondary">
+        Parece que no se encontraron productos :(
+      </p>
+    </div>
   </main>
 </template>

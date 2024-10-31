@@ -1,7 +1,14 @@
-export type Shop = 'carrefour' | 'dia'
+export type Shop = 'carrefour' | 'dia' | 'disco' | 'vea' | 'changomas' | 'jumbo'
 export type OrderBy = 'priceAsc' | 'priceDesc' | 'discountDesc'
 
-export const availableShops: Shop[] = ['carrefour', 'dia']
+export const availableShops: Shop[] = [
+  'carrefour',
+  'dia',
+  'disco',
+  'vea',
+  'changomas',
+  'jumbo',
+]
 
 export const filterShops: Array<{
   id: number
@@ -17,5 +24,25 @@ export const filterShops: Array<{
     id: 2,
     displayName: 'Dia',
     name: 'dia',
+  },
+  {
+    id: 3,
+    displayName: 'Disco',
+    name: 'disco',
+  },
+  {
+    id: 4,
+    displayName: 'Vea',
+    name: 'vea',
+  },
+  {
+    id: 5,
+    displayName: 'Chango Más',
+    name: 'changomas',
+  },
+  {
+    id: 5,
+    displayName: 'Jumbo',
+    name: 'jumbo',
   },
 ]

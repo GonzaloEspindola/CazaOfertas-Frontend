@@ -7,8 +7,12 @@ interface Props {
 const { shop, link } = defineProps<Props>()
 
 const baseUrlMap: Record<string, string> = {
-  carrefour: 'https://www.carrefour.com.ar/',
-  dia: 'https://www.dia.com.ar',
+  carrefour: 'https://www.carrefour.com.ar',
+  dia: '',
+  disco: 'https://www.disco.com.ar',
+  vea: 'https://www.vea.com.ar',
+  changomas: 'https://www.masonline.com.ar',
+  jumbo: 'https://www.jumbo.com.ar',
 }
 </script>
 

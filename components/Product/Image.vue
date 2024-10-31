@@ -54,7 +54,7 @@ const searchSpecifyProduct = () => {
       </UiTooltip>
 
       <UiTooltip
-        text="Buscar este producto especifico en otros supermercados"
+        :text="`Buscar este producto especifico en otros supermercados (${product.productReference})`"
         @click="searchSpecifyProduct"
         class="rounded-md hover:cursor-pointer bg-primary/80"
       >

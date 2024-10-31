@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <header class="py-6">
+  <header class="py-6 shadow-md">
     <nav class="max-w-screen-xl mx-auto">
       <ul class="flex justify-between items-center">
         <li>

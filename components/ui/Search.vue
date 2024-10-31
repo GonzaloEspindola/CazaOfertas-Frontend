@@ -13,10 +13,8 @@ const { values, handleSubmit } = useForm<Form>({
   },
 })
 
-const { shops } = filterStore
-
 const handleSubmitForm = handleSubmit(() => {
-  navigateTo({ path: '/search', query: { product: values.product, shops } })
+  filterStore.setProductName(values.product)
 })
 </script>
 
@@ -30,14 +28,32 @@ const handleSubmitForm = handleSubmit(() => {
         type="text"
         placeholder="Busca un producto..."
         rules="required"
-        class="focus:outline-none"
+        class="focus:outline-none grow"
       />
 
-      <svg viewBox="0 0 16 16" class="h-4 w-4 fill-border">
+      <svg
+        v-if="values.product === ''"
+        viewBox="0 0 16 16"
+        class="h-4 w-4 fill-border"
+      >
         <path
           fill-rule="evenodd"
           d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
           clip-rule="evenodd"
+        />
+      </svg>
+
+      <svg
+        v-else
+        @click="handleSubmitForm"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="h-4 w-4 stroke-border fill-white cursor-pointer"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m7.49 12-3.75 3.75m0 0 3.75 3.75m-3.75-3.75h16.5V4.499"
         />
       </svg>
     </label>

@@ -19,7 +19,7 @@ const removeQuantityToProduct = () => {
 
 <template>
   <article
-    class="flex items-center justify-between w-full text-sm border-[1px] border-base-content/10 p-2 rounded-md mt-3"
+    class="flex items-center justify-between w-full text-sm border-[1px] border-border p-2 rounded-md mt-3"
     :class="{
       'border-warning bg-warning/10': product.noAvailable,
     }"
@@ -48,8 +48,10 @@ const removeQuantityToProduct = () => {
       />
 
       <div class="flex flex-col">
-        <h3 class="font-semibold">{{ product.productName }}</h3>
-        <p class="text-xs font-mono text-neutral-400">
+        <h3 class="font-semibold text-text-primary">
+          {{ product.productName }}
+        </h3>
+        <p class="text-xs font-mono text-text-secondary">
           {{ product.productReference }}
         </p>
       </div>
@@ -58,11 +60,13 @@ const removeQuantityToProduct = () => {
     <div class="flex flex-col items-center">
       <p
         v-if="product.percentDiscount"
-        class="text-gray-400 line-through text-xs"
+        class="text-text-secondary line-through text-xs"
       >
         $ {{ product.listPriceValue }}
       </p>
-      <p class="font-semibold">$ {{ product.sellingPriceValue }}</p>
+      <p class="font-semibold text-text-primary">
+        $ {{ product.sellingPriceValue }}
+      </p>
 
       <div class="flex gap-2 items-center">
         <svg
@@ -70,7 +74,7 @@ const removeQuantityToProduct = () => {
           viewBox="0 0 24 24"
           stroke-width="1"
           stroke="currentColor"
-          class="w-6 h-6 hover:cursor-pointer hover:drop-shadow-lg hover:fill-error"
+          class="w-6 h-6 hover:cursor-pointer hover:drop-shadow-lg hover:fill-error/50"
           @click="removeQuantityToProduct"
         >
           <path
@@ -86,7 +90,7 @@ const removeQuantityToProduct = () => {
           viewBox="0 0 24 24"
           stroke-width="1"
           stroke="currentColor"
-          class="w-6 h-6 hover:cursor-pointer hover:drop-shadow-lg hover:fill-primary"
+          class="w-6 h-6 hover:cursor-pointer hover:drop-shadow-lg hover:fill-primary/50"
           @click="addQuantityToProduct"
         >
           <path

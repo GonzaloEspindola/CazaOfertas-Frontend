@@ -5,7 +5,7 @@ const cartStore = useCartStore()
 </script>
 
 <template>
-  <div class="drawer drawer-end">
+  <div class="drawer drawer-end max-w-fit">
     <input id="cart-drawer" type="checkbox" class="drawer-toggle" />
 
     <div
@@ -195,7 +195,6 @@ html:has(.drawer-toggle:checked) {
   overflow-x: hidden;
   overflow-y: hidden;
   overscroll-behavior: contain;
-  height: 100vh;
   height: 100dvh;
 }
 .drawer-side > .drawer-overlay {
