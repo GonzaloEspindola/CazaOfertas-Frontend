@@ -17,6 +17,7 @@ module.exports = {
         error: '#FF6363',
         warning: '#FFD319',
         success: '#2ED573',
+        transparent: 'transparent',
       },
     },
   },

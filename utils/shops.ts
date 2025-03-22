@@ -1,7 +1,15 @@
-export type Shop = 'carrefour' | 'dia' | 'disco' | 'vea' | 'changomas' | 'jumbo'
+export type Shop =
+  | 'carrefour'
+  | 'dia'
+  | 'disco'
+  | 'vea'
+  | 'changomas'
+  | 'jumbo'
+  | 'coto'
 export type OrderBy = 'priceAsc' | 'priceDesc' | 'discountDesc'
 
 export const availableShops: Shop[] = [
+  'coto',
   'carrefour',
   'dia',
   'disco',
@@ -41,8 +49,26 @@ export const filterShops: Array<{
     name: 'changomas',
   },
   {
-    id: 5,
+    id: 6,
     displayName: 'Jumbo',
     name: 'jumbo',
   },
+  {
+    id: 7,
+    displayName: 'Coto',
+    name: 'coto',
+  },
 ]
+
+export const getProductsByShops = async (
+  productName: string,
+  shops: string[]
+) => {
+  const nuxtApp = useNuxtApp()
+
+  const query = {
+    productName,
+    shops,
+  }
+  return await nuxtApp.$api.product.getProducts(query)
+}

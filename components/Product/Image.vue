@@ -7,14 +7,27 @@ interface Props {
 
 const { product } = defineProps<Props>()
 
-const addingToCart = ref(false)
+const addingToCart: Ref<boolean> = ref(false)
 const filterStore = useFiltersStore()
 
-const addProductToCart = () => {
+const addProductToCart = async () => {
   try {
     addingToCart.value = true
+    await useCartStore().addProductToCarts(product, filterStore.shops)
+  } catch (error) {
+    console.error(error)
+  } finally {
+    addingToCart.value = false
+  }
+}
 
-    useCartStore().addProductToCarts(product)
+const removeProductFromCart = async () => {
+  try {
+    addingToCart.value = true
+    await useCartStore().removeProductFromCart(
+      product.shop,
+      product.productReference
+    )
   } catch (error) {
     console.error(error)
   } finally {
@@ -41,8 +54,13 @@ const searchSpecifyProduct = () => {
         text="Añadir al carrito"
         @click="addProductToCart"
         class="rounded-md hover:cursor-pointer bg-primary/80"
+        :class="{ 'bg-text-secondary/80 pointer-events-none ': addingToCart }"
       >
-        <SvgShoppingCart class="h-7 w-7 p-[6px] stroke-white" />
+        <UiLoadingSpinner
+          v-if="addingToCart"
+          class="h-7 w-7 p-[6px] stroke-white"
+        />
+        <SvgShoppingCart v-else class="h-7 w-7 p-[6px] stroke-white" />
       </UiTooltip>
 
       <UiTooltip
@@ -50,7 +68,10 @@ const searchSpecifyProduct = () => {
         text="Producto ya añadido al carrito"
         class="rounded-md bg-primary/80"
       >
-        <SvgCheck class="h-7 w-7 p-[6px]" />
+        <SvgClose
+          class="h-7 w-7 p-[6px] stroke-white cursor-pointer"
+          @click="removeProductFromCart"
+        />
       </UiTooltip>
 
       <UiTooltip

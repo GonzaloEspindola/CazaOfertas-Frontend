@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { availableShops } from '#imports'
 import type { Product } from '~/repositories/types/product'
 import type { OrderBy } from '~/utils/shops'
+import { getProductsByShops } from '~/utils/shops'
 
 export interface ProductCart {
   preShop: string
@@ -71,13 +72,15 @@ export const useCartStore = defineStore('cart', {
       })
     },
 
-    addProductToCarts(product: Product) {
+    async addProductToCarts(product: Product, shops: string[]) {
+      // Crear un objeto para cada tienda en `productByStore`
       const productByStore: ProductByStore = {}
 
       Object.keys(this.carts).forEach((store) => {
         productByStore[store] = undefined
       })
 
+      // Añadir el producto principal al carrito "carritoargento" con cantidad 1
       productByStore['carritoargento'] = {
         product: {
           ...product,
@@ -87,11 +90,20 @@ export const useCartStore = defineStore('cart', {
         },
       }
 
-      this.products.forEach((prod) => {
-        const findCoincidenceProduct =
+      // Buscar el producto en cada tienda especificada
+      const findSpecificProduct = await getProductsByShops(
+        product.productReference,
+        shops
+      )
+
+      // Iterar sobre los resultados de `findSpecificProduct` para cada tienda
+      findSpecificProduct.forEach((prod) => {
+        // Comprobar si el producto coincide con el `productReference`
+        const isMatchingProduct =
           prod.productReference === product.productReference
 
-        if (findCoincidenceProduct) {
+        if (isMatchingProduct) {
+          // Añadir el producto encontrado a `productByStore` para esa tienda
           productByStore[prod.shop] = {
             product: {
               ...prod,
@@ -101,9 +113,16 @@ export const useCartStore = defineStore('cart', {
             },
           }
 
+          // Marcar el producto como agregado al carrito
           prod.addedToCart = true
-        } else if (!productByStore[prod.shop]) {
-          productByStore[prod.shop] = {
+        }
+      })
+
+      // Iterar sobre cada tienda especificada en `shops`
+      shops.forEach((shop) => {
+        // Si no se encontró el producto en la tienda, añadir un producto "no disponible"
+        if (!productByStore[shop]) {
+          productByStore[shop] = {
             product: {
               ...product,
               quantity: 0,
@@ -114,21 +133,26 @@ export const useCartStore = defineStore('cart', {
         }
       })
 
+      // Añadir cada producto al carrito correspondiente en `this.carts`
       Object.keys(productByStore).forEach((store) => {
-        if (productByStore[store]) {
-          const { product } = productByStore[store]
+        const storeProduct = productByStore[store]
 
-          if (product) {
-            this.carts[store].products.push(product)
+        if (storeProduct && storeProduct.product) {
+          this.carts[store].products.push(storeProduct.product)
 
-            if ('sellingPriceValue' in product && 'quantity' in product) {
-              this.carts[store].totalPrice +=
-                product.sellingPriceValue * product.quantity
-            }
+          if (
+            'sellingPriceValue' in storeProduct.product &&
+            'quantity' in storeProduct.product
+          ) {
+            // Sumar el precio total del producto multiplicado por su cantidad
+            this.carts[store].totalPrice +=
+              storeProduct.product.sellingPriceValue *
+              storeProduct.product.quantity
           }
         }
       })
 
+      // Marcar si algún carrito necesita revisión
       Object.keys(this.carts).forEach((store) => {
         this.carts[store].needReview = this.carts[store].products.some(
           (product) => 'noAvailable' in product && product.noAvailable

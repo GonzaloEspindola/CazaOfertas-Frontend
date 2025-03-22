@@ -57,7 +57,7 @@ const removeQuantityToProduct = () => {
       </div>
     </div>
 
-    <div class="flex flex-col items-center">
+    <div v-if="!product.noAvailable" class="flex flex-col items-center">
       <p
         v-if="product.percentDiscount"
         class="text-text-secondary line-through text-xs"

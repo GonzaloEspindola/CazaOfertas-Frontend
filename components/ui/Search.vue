@@ -28,7 +28,7 @@ const handleSubmitForm = handleSubmit(() => {
         type="text"
         placeholder="Busca un producto..."
         rules="required"
-        class="focus:outline-none grow"
+        class="focus:outline-none grow bg-transparent"
       />
 
       <svg

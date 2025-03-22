@@ -50,28 +50,14 @@ const { cart, storeName } = defineProps<Props>()
         </div>
       </summary>
 
-      <transition name="fade">
-        <div class="px-4 pb-4 pt-2 flex flex-col gap-2 border-t border-border">
-          <BaseShoppingCartProduct
-            v-for="product in cart.products"
-            :key="product.productReference"
-            :product="product"
-            :store-name="storeName"
-          />
-        </div>
-      </transition>
+      <div class="px-4 pb-4 pt-2 flex flex-col gap-2 border-t border-border">
+        <BaseShoppingCartProduct
+          v-for="product in cart.products"
+          :key="product.productReference"
+          :product="product"
+          :store-name="storeName"
+        />
+      </div>
     </details>
   </div>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-</style>

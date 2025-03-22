@@ -4,8 +4,6 @@ import { useFiltersStore } from '~/stores/filters'
 const route = useRoute()
 
 const { product, shops } = route.query
-console.log('product', product)
-console.log('shops', shops)
 
 const filterStore = useFiltersStore()
 filterStore.productName = product as string
@@ -35,15 +33,13 @@ const { data, status, execute } = await useAsyncData(
   },
   {
     deep: true,
+    lazy: true,
   }
 )
 
 watch(
   [shopsComputed, productNameComputed],
   () => {
-    console.log('shopsComputed', shopsComputed.value)
-    console.log('productNameComputed.value', productNameComputed.value)
-
     execute()
   },
   {
@@ -53,7 +49,7 @@ watch(
 </script>
 
 <template>
-  <main class="flex gap-4 bg-background py-14">
+  <main class="flex gap-4 bg-background pb-8 min-h-[100%] flex-1">
     <SectionsSidebar :results="data?.length || 0" :is-loading="isLoading" />
 
     <SectionsProducts>

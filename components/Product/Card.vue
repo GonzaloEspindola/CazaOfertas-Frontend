@@ -10,7 +10,7 @@ const { product } = defineProps<Props>()
 
 <template>
   <article
-    class="flex flex-col p-2 border-[1.5px] border-border rounded-md max-w-[210px] hover:border-primary hover:shadow-lg transition-all"
+    class="flex flex-col p-2 border-[1.5px] border-border rounded-md max-w-[210px] hover:border-primary hover:shadow-lg transition-all max-h-96 bg-white"
   >
     <ProductImage :product="product" />
 

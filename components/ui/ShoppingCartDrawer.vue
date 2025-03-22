@@ -29,13 +29,28 @@ const cartStore = useCartStore()
       <ul class="flex flex-col gap-6 bg-white min-h-full p-6 z-50 w-[30rem]">
         <li class="flex flex-col">
           <div class="flex gap-2">
-            <SvgShoppingCart class="h-6 w-6" />
-            <p class="text-lg font-semibold">Carrito de compras</p>
+            <SvgShoppingCart class="h-6 w-6 stroke-text-primary" />
+            <p class="text-lg font-semibold text-text-primary">
+              Carrito de compras
+            </p>
           </div>
-          <p class="text-sm text-neutral-500">
+          <p class="text-sm text-text-secondary">
             Compara el precio de tu carrito en varios supermercados
           </p>
         </li>
+
+        <!-- <li>
+          <label class="inline-flex items-center me-5 cursor-pointer">
+            <input type="checkbox" value="" class="sr-only peer" checked />
+            <div
+              class="relative w-11 h-6 bg-primary rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+            ></div>
+            <span class="ms-3 text-sm font-medium text-text-primary"
+              >Usar todos los supermercados</span
+            >
+          </label>
+        </li> -->
+
         <li class="flex flex-col gap-4">
           <UiCartStoreSummary
             v-for="[storeName, cart] in Object.entries(cartStore.carts)"
