@@ -32,13 +32,20 @@ const setSelectedShop = (index: number) => {
   console.log(index)
 }
 
+const hasError = () => {
+  console.log('error')
+}
+
 const filteredPromotions = computed(() => {
   if (!data.value) return []
   return data.value[selectedDayIndex.value] || []
 })
 
-const selectedCards = ref<string[]>([])
-const options = ['Uala', 'Santander']
+const methodPays = [
+  { id: '1', name: 'PayPal', displayName: 'PayPal' },
+  { id: '2', name: 'Uala', displayName: 'Uala' },
+  { id: '3', name: 'Santander', displayName: 'Santander' },
+]
 </script>
 
 <template>
@@ -58,31 +65,60 @@ const options = ['Uala', 'Santander']
         />
       </div>
 
-      <UiSelectionInput />
+      <section class="flex gap-4">
+        <UiSelectionInput
+          :options="methodPays"
+          text="Selecciona los métodos de pago"
+        >
+          <template #icon>
+            <SvgCard />
+          </template>
+        </UiSelectionInput>
 
-      <div>
-        <ul class="flex flex-wrap gap-4">
-          <li
-            v-for="(promo, i) in filteredPromotions"
-            :key="i"
-            class="flex flex-col border border-black w-[400px] h-[200px] p-4 rounded-md shadow-md"
-            :style="{
-              backgroundColor: promo.image.color,
-            }"
-          >
+        <UiSelectionInput
+          :options="methodPays"
+          text="Selecciona los supermercados"
+        >
+          <template #icon> <SvgShops /> </template
+        ></UiSelectionInput>
+      </section>
+
+      <ul class="flex flex-wrap gap-4">
+        <li
+          v-for="(promo, i) in filteredPromotions"
+          :key="i"
+          class="flex flex-col w-[400px] h-[200px] p-4 rounded-md shadow-md relative"
+          :style="{
+            backgroundColor: promo.image.color,
+          }"
+        >
+          <SvgPromotionCardBackground class="promotion-image rounded-md" />
+          <div class="z-10">
             <div class="flex justify-between">
               <img
                 :src="`/assets/logos/${promo.image.image}`"
                 class="h-12"
                 :alt="promo.image.image"
+                @error="hasError()"
               />
               <h3>{{ promo.discount }}</h3>
             </div>
             <p>{{ promo.detail }}</p>
             <small>{{ promo.footer }}</small>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </li>
+      </ul>
     </section>
   </SectionsLanding>
 </template>
+
+<style>
+.promotion-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+</style>

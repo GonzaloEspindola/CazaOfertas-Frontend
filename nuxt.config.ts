@@ -8,7 +8,10 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@nuxt/eslint',
     '@pinia/nuxt',
+    '@nuxt/image',
   ],
+
+  css: ['@/public/assets/css/main.css'],
 
   app: {
     head: {

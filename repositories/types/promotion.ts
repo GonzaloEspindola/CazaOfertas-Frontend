@@ -10,3 +10,9 @@ interface PromotionImage {
   image: string
   color: string
 }
+
+export interface MethodsPay {
+  id: number
+  name: string
+  displayName: string
+}

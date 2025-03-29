@@ -1,0 +1,9 @@
+.entrance-enter-active,
+.entrance-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.entrance-enter-from,
+.entrance-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
