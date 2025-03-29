@@ -1,8 +1,12 @@
 export interface PromotionItem {
-  tarjeta: string
-  descuento: string
-  detalle: string
-  imagen: string
+  discount: string
+  detail: string
+  image: PromotionImage
   footer: string
   shop: string
+}
+
+interface PromotionImage {
+  image: string
+  color: string
 }

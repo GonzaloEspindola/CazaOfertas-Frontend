@@ -1,6 +1,5 @@
 import { HttpRepository } from '../http-repository'
-import type { Product, Query } from '../types/product'
-import type { PromotionItem } from '../types/Promotion'
+import type { PromotionItem } from '../types/promotion'
 
 export class PromotionsRepository extends HttpRepository {
   private RESOURCE = 'promotions'
