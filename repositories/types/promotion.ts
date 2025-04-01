@@ -8,7 +8,13 @@ export interface PromotionItem {
 
 interface PromotionImage {
   image: string
-  color: string
+  colors: PromotionColors
+}
+
+interface PromotionColors {
+  primaryColor: string
+  secondaryColor: string
+  lightColor: string
 }
 
 export interface MethodsPay {

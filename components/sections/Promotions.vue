@@ -23,18 +23,7 @@ const days = [
 ]
 
 const selectedDayIndex = ref(new Date().getDay() - 1)
-
-const setSelectedDay = (index: number) => {
-  selectedDayIndex.value = index
-}
-
-const setSelectedShop = (index: number) => {
-  console.log(index)
-}
-
-const hasError = () => {
-  console.log('error')
-}
+const promoImageContainer = ref<HTMLElement | null>(null)
 
 const filteredPromotions = computed(() => {
   if (!data.value) return []
@@ -46,6 +35,14 @@ const methodPays = [
   { id: '2', name: 'Uala', displayName: 'Uala' },
   { id: '3', name: 'Santander', displayName: 'Santander' },
 ]
+
+const setSelectedDay = (index: number) => {
+  selectedDayIndex.value = index
+}
+
+const setSelectedShop = (index: number) => {
+  console.log(index)
+}
 </script>
 
 <template>
@@ -79,8 +76,8 @@ const methodPays = [
           :options="methodPays"
           text="Selecciona los supermercados"
         >
-          <template #icon> <SvgShops /> </template
-        ></UiSelectionInput>
+          <template #icon> <SvgShops /> </template>
+        </UiSelectionInput>
       </section>
 
       <ul class="flex flex-wrap gap-4">
@@ -88,18 +85,21 @@ const methodPays = [
           v-for="(promo, i) in filteredPromotions"
           :key="i"
           class="flex flex-col w-[400px] h-[200px] p-4 rounded-md shadow-md relative"
-          :style="{
-            backgroundColor: promo.image.color,
-          }"
         >
-          <SvgPromotionCardBackground class="promotion-image rounded-md" />
+          <!-- <SvgPromotionCardBackground
+            class="promotion-image rounded-md"
+            :primary-color="promo.image.colors.primaryColor"
+            :secondary-color="promo.image.colors.secondaryColor"
+            :light-color="promo.image.colors.lightColor"
+          /> -->
+
           <div class="z-10">
             <div class="flex justify-between">
               <img
-                :src="`/assets/logos/${promo.image.image}`"
                 class="h-12"
+                :class="`image-${i}`"
+                :src="`/assets/logos/${promo.image.image}`"
                 :alt="promo.image.image"
-                @error="hasError()"
               />
               <h3>{{ promo.discount }}</h3>
             </div>
