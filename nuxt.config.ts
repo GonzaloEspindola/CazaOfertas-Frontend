@@ -9,7 +9,43 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@pinia/nuxt',
     '@nuxt/image',
+    '@vite-pwa/nuxt',
   ],
+
+  pwa: {
+    manifest: {
+      name: 'Tu App',
+      short_name: 'App',
+      description: 'Descripción de tu app',
+      start_url: '/',
+      display: 'standalone',
+      theme_color: '#000000',
+      background_color: '#ffffff',
+      icons: [
+        {
+          src: '/icon-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: '/icon-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+      ],
+    },
+    workbox: {
+      runtimeCaching: [
+        {
+          urlPattern: '/*',
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'app-cache',
+          },
+        },
+      ],
+    },
+  },
 
   css: ['@/public/assets/css/main.css'],
 
