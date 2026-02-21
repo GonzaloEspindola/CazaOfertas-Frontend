@@ -10,7 +10,8 @@
     <UiSearch class="mt-8 w-full max-w-lg" />
   </SectionsLanding>
 
-  <SectionsPromotions />
+  <SectionsApiStatus />
+
 
 </template>
 
