@@ -21,8 +21,9 @@ const handleSubmitForm = handleSubmit(() => {
 <template>
   <form @submit.prevent="handleSubmitForm">
     <label
-      class="flex items-center gap-2 text-text-primary border border-border rounded-md p-4 transition focus-within:outline focus-within:outline-1 focus-within:outline-border hover:outline hover:outline-1 hover:outline-border"
+      class="flex items-center h-14 gap-2 text-text-primary border border-border rounded-lg px-4 transition focus-within:outline focus-within:outline-1 focus-within:outline-border hover:outline hover:outline-1 hover:outline-border"
     >
+
       <Field
         name="product"
         type="text"

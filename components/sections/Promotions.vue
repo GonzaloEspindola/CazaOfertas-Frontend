@@ -47,64 +47,64 @@ const setSelectedShop = (index: number) => {
 
 <template>
   <SectionsLanding>
-    <h2 class="text-3xl text-text-primary mb-4">
+    <h2 class="text-2xl md:text-3xl text-text-primary mb-4 text-center">
       Descuentos y promociones esta semana:
     </h2>
 
-    <section class="flex flex-col gap-4">
-      <div class="flex items-center justify-center gap-4">
+    <section class="flex flex-col gap-6 w-full">
+      <div
+        class="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-2 no-scrollbar px-2"
+      >
         <UiButton
           v-for="(day, index) in days"
           :key="index"
           :text="day"
           :variant="index === selectedDayIndex ? 'normal' : 'outline'"
           @click="setSelectedDay(index)"
+          class="shrink-0 whitespace-nowrap"
         />
       </div>
 
-      <section class="flex gap-4">
+      <section class="flex flex-col md:flex-row gap-4">
         <UiSelectionInput
           :options="methodPays"
           text="Selecciona los métodos de pago"
+          class="flex-1"
         >
           <template #icon>
-            <SvgCard />
+            <SVGCard />
           </template>
         </UiSelectionInput>
 
         <UiSelectionInput
           :options="methodPays"
           text="Selecciona los supermercados"
+          class="flex-1"
         >
-          <template #icon> <SvgShops /> </template>
+          <template #icon> <SVGShops /> </template>
         </UiSelectionInput>
       </section>
 
-      <ul class="flex flex-wrap gap-4">
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
         <li
           v-for="(promo, i) in filteredPromotions"
           :key="i"
-          class="flex flex-col w-[400px] h-[200px] p-4 rounded-md shadow-md relative"
+          class="flex flex-col w-full h-auto min-h-[160px] md:h-[200px] p-6 rounded-xl border border-border shadow-sm bg-white relative overflow-hidden transition hover:shadow-md"
         >
-          <!-- <SvgPromotionCardBackground
-            class="promotion-image rounded-md"
-            :primary-color="promo.image.colors.primaryColor"
-            :secondary-color="promo.image.colors.secondaryColor"
-            :light-color="promo.image.colors.lightColor"
-          /> -->
-
-          <div class="z-10">
-            <div class="flex justify-between">
+          <div class="z-10 flex flex-col h-full justify-between">
+            <div class="flex justify-between items-start">
               <img
-                class="h-12"
+                class="h-10 md:h-12 object-contain"
                 :class="`image-${i}`"
                 :src="`/assets/logos/${promo.image.image}`"
                 :alt="promo.image.image"
               />
-              <h3>{{ promo.discount }}</h3>
+              <h3 class="font-bold text-primary text-lg">{{ promo.discount }}</h3>
             </div>
-            <p>{{ promo.detail }}</p>
-            <small>{{ promo.footer }}</small>
+            <div class="mt-4">
+              <p class="text-text-primary font-medium line-clamp-2">{{ promo.detail }}</p>
+              <small class="text-text-secondary mt-1 block">{{ promo.footer }}</small>
+            </div>
           </div>
         </li>
       </ul>
@@ -112,13 +112,13 @@ const setSelectedShop = (index: number) => {
   </SectionsLanding>
 </template>
 
-<style>
-.promotion-image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 0;
+<style scoped>
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>
+

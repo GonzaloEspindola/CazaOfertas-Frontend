@@ -7,7 +7,7 @@ interface Props {
 
 const { product } = defineProps<Props>()
 
-const addingToCart: Ref<boolean> = ref(false)
+const addingToCart = ref(false)
 const filterStore = useFiltersStore()
 
 const addProductToCart = async () => {
@@ -40,47 +40,51 @@ const searchSpecifyProduct = () => {
 }
 </script>
 
+
 <template>
   <section class="relative flex items-center justify-center w-full">
     <img
       :src="product.imageUrl"
       alt="product image"
-      class="border-b-[1px] border-border grow p-2 aspect-square object-contain w-48 h-48"
+      class="border-b-[1px] border-border grow aspect-square object-contain w-full max-h-64"
     />
 
-    <div class="absolute top-0 left-0 flex gap-2 items-center">
-      <UiTooltip
+    <div class="absolute top-4 left-4 flex gap-3 items-center z-30">
+      <button
         v-if="!product.addedToCart"
-        text="Añadir al carrito"
-        @click="addProductToCart"
-        class="rounded-md hover:cursor-pointer bg-primary/80"
-        :class="{ 'bg-text-secondary/80 pointer-events-none ': addingToCart }"
+        type="button"
+        @click.stop="addProductToCart"
+        class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-2xl border-2 border-primary/20 transition-all hover:scale-110 active:scale-95 text-primary"
+        :disabled="addingToCart"
       >
         <UiLoadingSpinner
           v-if="addingToCart"
-          class="h-7 w-7 p-[6px] stroke-white"
+          class="h-7 w-7"
         />
-        <SvgShoppingCart v-else class="h-7 w-7 p-[6px] stroke-white" />
-      </UiTooltip>
+        <SVGShoppingCart v-else class="h-7 w-7" />
+      </button>
 
-      <UiTooltip
+      <button
         v-else
-        text="Producto ya añadido al carrito"
-        class="rounded-md bg-primary/80"
+        type="button"
+        @click.stop="removeProductFromCart"
+        class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-2xl border-2 border-error/20 transition-all hover:scale-110 active:scale-95 text-error"
       >
-        <SvgClose
-          class="h-7 w-7 p-[6px] stroke-white cursor-pointer"
-          @click="removeProductFromCart"
+        <SVGClose
+          class="h-7 w-7"
         />
-      </UiTooltip>
+      </button>
 
-      <UiTooltip
-        :text="`Buscar este producto especifico en otros supermercados (${product.productReference})`"
-        @click="searchSpecifyProduct"
-        class="rounded-md hover:cursor-pointer bg-primary/80"
+      <button
+        type="button"
+        @click.stop="searchSpecifyProduct"
+        class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-2xl border-2 border-text-primary/20 transition-all hover:scale-110 active:scale-95 text-text-primary"
       >
-        <SvgBarCode class="h-7 w-7 p-[6px]" />
-      </UiTooltip>
+        <SVGBarCode class="h-7 w-7" />
+      </button>
     </div>
+
+
+
   </section>
 </template>

@@ -4,7 +4,7 @@
     id="Capa_1"
     viewBox="0 0 15.273 15.273"
     xml:space="preserve"
-    fill="white"
+    fill="currentColor"
   >
     <g>
       <path
@@ -13,3 +13,4 @@
     </g>
   </svg>
 </template>
+

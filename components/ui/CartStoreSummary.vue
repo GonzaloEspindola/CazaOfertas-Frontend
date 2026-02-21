@@ -13,12 +13,13 @@ const { cart, storeName } = defineProps<Props>()
   <div class="border border-border rounded-md overflow-hidden">
     <details class="group" :open="cart.needReview">
       <summary
-        class="flex justify-between items-center p-4 text-xl font-medium cursor-pointer border-l-4 transition-colors"
+        class="flex justify-between items-center p-3 md:p-4 text-lg md:text-xl font-medium cursor-pointer border-l-4 transition-colors"
         :class="{
           'border-warning': cart.needReview,
           'border-success': !cart.needReview,
         }"
       >
+
         <div class="flex flex-col gap-1">
           <div class="h-8">
             <img
@@ -28,7 +29,7 @@ const { cart, storeName } = defineProps<Props>()
               :title="`Logo de ${storeName}`"
               class="h-full"
             />
-            <SvgLogo v-else class="" />
+            <SVGLogo v-else class="" />
           </div>
           <span
             class="text-xs"

@@ -2,9 +2,9 @@
   <article
     v-for="i in 10"
     :key="i"
-    class="flex flex-col gap-4 p-2 border-[1px] border-border animate-pulse rounded-md max-w-[210px] hover:border-primary hover:shadow-md transition-all"
+    class="flex flex-col gap-4 p-4 border border-border animate-pulse rounded-xl transition-all w-full"
   >
-    <div class="bg-border animate-pulse h-48 w-48 rounded-md"></div>
+    <div class="bg-border animate-pulse h-48 w-full rounded-md"></div>
 
     <div class="bg-border animate-pulse h-6 w-full rounded-md"></div>
 

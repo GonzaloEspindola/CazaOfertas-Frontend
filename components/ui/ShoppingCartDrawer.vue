@@ -12,24 +12,30 @@ const cartStore = useCartStore()
       class="drawer-content tooltip tooltip-bottom"
       data-tip="Carrito de compras"
     >
-      <label for="cart-drawer" class="drawer-button">
-        <UiButton text="Carrito de compras">
-          <SvgShoppingCart class="h-3 w-3 stroke-white" />
+      <label for="cart-drawer" class="drawer-button text-nowrap">
+        <UiButton text="Carrito" hide-text-mobile>
+          <SVGShoppingCart class="h-6 w-6 md:h-5 md:w-5 text-white" />
         </UiButton>
       </label>
+
+
     </div>
 
-    <div class="drawer-side">
+    <div class="drawer-side z-50">
       <label
         for="cart-drawer"
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
 
-      <ul class="flex flex-col gap-6 bg-white min-h-full p-6 z-50 w-[30rem]">
+      <ul
+        class="flex flex-col gap-6 bg-white min-h-full p-4 md:p-6 z-100 w-[85vw] max-w-[480px] md:w-[30rem]"
+      >
+
+
         <li class="flex flex-col">
           <div class="flex gap-2">
-            <SvgShoppingCart class="h-6 w-6 stroke-text-primary" />
+            <SVGShoppingCart class="h-6 w-6 stroke-text-primary" />
             <p class="text-lg font-semibold text-text-primary">
               Carrito de compras
             </p>
@@ -65,14 +71,14 @@ const cartStore = useCartStore()
   </div>
 </template>
 
-<style>
+<style scoped>
 .drawer {
   position: relative;
   display: grid;
   grid-auto-columns: max-content auto;
   width: 100%;
-  z-index: 100;
 }
+
 
 .drawer-end {
   grid-auto-columns: auto max-content;

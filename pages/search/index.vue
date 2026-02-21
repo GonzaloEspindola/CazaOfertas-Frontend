@@ -49,8 +49,10 @@ watch(
 </script>
 
 <template>
-  <main class="flex gap-4 bg-background pb-8 min-h-[100%] flex-1">
+  <main class="flex flex-col gap-6 bg-background pb-8 min-h-[100%] flex-1">
     <SectionsSidebar :results="data?.length || 0" :is-loading="isLoading" />
+
+
 
     <SectionsProducts>
       <ProductSkeleton v-if="isLoading" />

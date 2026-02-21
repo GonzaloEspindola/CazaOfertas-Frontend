@@ -14,7 +14,8 @@ const hasDiscount = computed(() => percentDiscount > 0)
 </script>
 
 <template>
-  <section class="flex flex-col gap-1 px-2 py-4 justify-between grow">
+  <section class="flex flex-col gap-2 px-4 py-4 justify-between grow">
+
     <h3 class="text-sm font-semibold text-text-primary">{{ productName }}</h3>
 
     <div class="flex flex-col">
