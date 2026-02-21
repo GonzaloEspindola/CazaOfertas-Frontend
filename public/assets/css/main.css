@@ -7,3 +7,10 @@
   opacity: 0;
   transform: translateY(-10px);
 }
+
+body {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}

@@ -1,14 +1,43 @@
 <script setup lang="ts">
-const shops = [
-  { id: 'Carrefour', name: 'Carrefour', status: 'available' },
-  { id: 'Dia', name: 'Dia', status: 'available' },
-  { id: 'disco', name: 'Disco', status: 'available' },
-  { id: 'Vea', name: 'Vea', status: 'available' },
-  { id: 'changomas', name: 'ChangoMas', status: 'maintenance' },
-  { id: 'jumbo', name: 'Jumbo', status: 'available' },
-  { id: 'Coto', name: 'Coto', status: 'maintenance' },
-  { id: 'Vital', name: 'Vital', status: 'available' },
-]
+const { $api } = useNuxtApp()
+
+const shopDetails: Record<string, { id: string, name: string }> = {
+  carrefour: { id: 'Carrefour', name: 'Carrefour' },
+  dia: { id: 'Dia', name: 'Dia' },
+  disco: { id: 'disco', name: 'Disco' },
+  vea: { id: 'Vea', name: 'Vea' },
+  changomas: { id: 'changomas', name: 'ChangoMas' },
+  jumbo: { id: 'jumbo', name: 'Jumbo' },
+  coto: { id: 'Coto', name: 'Coto' },
+  vital: { id: 'Vital', name: 'Vital' },
+}
+
+const { data: shops } = await useAsyncData(
+  'store-status',
+  async () => {
+    try {
+      const response = await $api.product.getStoresStatus()
+      
+      if (!response || typeof response !== 'object' || Array.isArray(response)) {
+        return Object.values(shopDetails).map(shop => ({ ...shop, status: 'loading' }))
+      }
+
+      return Object.entries(response).map(([key, isAvailable]) => {
+        const details = shopDetails[key.toLowerCase()] || { id: key, name: key }
+        return {
+          id: details.id,
+          name: details.name,
+          status: isAvailable ? 'available' : 'maintenance'
+        }
+      })
+    } catch (e) {
+      console.error('Failed to fetch store status:', e)
+      return Object.values(shopDetails).map(shop => ({ ...shop, status: 'unknown' }))
+    }
+  }
+)
+
+
 
 const getStatusColor = (status: string) => {
   switch (status) {

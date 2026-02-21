@@ -10,4 +10,11 @@ export class ProductRepository extends HttpRepository {
       query,
     })
   }
+
+  async getStoresStatus(): Promise<any> {
+    return await this.fetch<any>(`${this.RESOURCE}/stores/status`, {
+      method: 'GET',
+    })
+  }
 }
+
